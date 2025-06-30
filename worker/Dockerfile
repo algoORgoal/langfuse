@@ -43,7 +43,7 @@ ARG NEXT_PUBLIC_POSTHOG_HOST
 # Copy source code of isolated subworkspace
 COPY --from=pruner /app/out/full/ .
 
-RUN turbo run build --filter=worker...
+RUN NODE_OPTIONS='--max-old-space-size=4096' turbo run build --filter=worker...
 
 FROM --platform=${TARGETPLATFORM:-linux/amd64} base AS runner
 
